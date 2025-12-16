@@ -10,9 +10,15 @@ const persistConfig = {
     // whitelist: ["chat", "auth"],
 };
 
+const chatPersistConfig = {
+    key: 'chat',
+    storage,
+    blacklist: ['chatInput'], // Don't persist the chat input field
+};
+
 const rootReducer = combineReducers({
     auth: authReducer,
-    chat: chatReducer,
+    chat: persistReducer(chatPersistConfig, chatReducer),
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
