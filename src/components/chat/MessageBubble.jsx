@@ -52,13 +52,31 @@ const MessageBubble = ({ message }) => {
             );
         }
         return (
-            <div className="no-tailwind max-w-full">
+            <div className="no-tailwind max-w-full space-y-4">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
                 >
                     {message.content}
                 </ReactMarkdown>
+                {message.pageImages && message.pageImages.length > 0 && (
+                    <div className="space-y-4 mt-4">
+                        <div className="text-sm font-semibold text-gray-700">Referenced Pages:</div>
+                        {message.pageImages.map((pageImg, idx) => (
+                            <div key={idx} className="border border-gray-300 rounded-lg p-3 bg-gray-50">
+                                <div className="text-xs text-gray-600 mb-2">
+                                    Page {pageImg.page} - {pageImg.source_pdf}
+                                </div>
+                                <img
+                                    src={`data:image/png;base64,${pageImg.image}`}
+                                    alt={`Page ${pageImg.page} from ${pageImg.source_pdf}`}
+                                    className="rounded-lg max-w-full h-auto"
+                                    style={{ maxHeight: '600px' }}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         );
     };
