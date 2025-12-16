@@ -48,6 +48,9 @@ export const sendMessageAPI = createAsyncThunk("chat/sendMessageAPI",
                         content: response.response,
                         timestamp: new Date().toISOString(),
                         contentType: "text",
+                        pageImages: response.page_images || [],
+                        referencedPages: response.referenced_pages || [],
+                        sourceMap: response.source_map || {},
                     },
                 };
             }
