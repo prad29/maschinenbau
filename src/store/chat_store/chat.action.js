@@ -39,20 +39,20 @@ export const sendMessageAPI = createAsyncThunk("chat/sendMessageAPI",
     async ({ chatId, question }, thunkAPI) => {
         try {
             const response = await askQuestionService({ question });
-            if (response?.status === "success") {
+            if (response?.response) {
                 return {
                     chatId: chatId,
                     bot: {
                         id: "b_" + Date.now(),
                         role: "bot",
-                        content: response.answer,
+                        content: response.response,
                         timestamp: new Date().toISOString(),
                         contentType: "text",
                     },
                 };
             }
 
-            return thunkAPI.rejectWithValue(response.message);
+            return thunkAPI.rejectWithValue(response.error || "Failed to get response");
         } catch (err) {
             return thunkAPI.rejectWithValue(err.message);
         }
