@@ -47,7 +47,8 @@ const ChatInput = () => {
         // Add user message immediately to UI
         dispatch(addUserMessage({ chatId: activeChatId, userMessage, }));
 
-
+        // Clear input field
+        dispatch(setChatInput(""));
 
         // Send message to backend
         dispatch(sendMessageAPI({ chatId: activeChatId, userMessage, question: userMessage.content, }));
