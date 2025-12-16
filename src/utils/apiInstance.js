@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiInstance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL || "http://18.198.197.248:5000/",
-    withCredentials: true,
+    withCredentials: false
 })
 
 apiInstance.interceptors.request.use(
